@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "outDir": "../../app",
+    "skipLibCheck": true
+  },
+  "include": ["./**/*", "../common/**/*"]
+}

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2017",
+    "lib": ["es6", "es2017"],
+    "types": ["reflect-metadata"],
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true
+  },
+  "include": ["./**/*"]
+}

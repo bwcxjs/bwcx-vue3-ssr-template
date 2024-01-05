@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+node_modules/
+dist/
+app/
+coverage/
+npm-debug.log
+tsconfig.tsbuildinfo
+temp/
