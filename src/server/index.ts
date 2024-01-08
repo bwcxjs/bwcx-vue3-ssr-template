@@ -19,6 +19,8 @@ import UtilityHeaderMiddleware from './middlewares/utility-header.middleware';
 import LoggerMiddleware from './middlewares/logger.middleware';
 import DefaultResponseHandler from '@server/response-handlers/default.response-handler';
 import { IPageRenderer } from './lib/page-renderer.interface';
+import { BwcxClientVueClientRoutesMapId } from 'bwcx-client-vue/server';
+import { clientRoutesMap } from '@common/router/client-routes';
 
 export default class OurApp extends App {
   protected baseDir = path.join(__dirname, '..');
@@ -62,6 +64,7 @@ export default class OurApp extends App {
 
   public constructor() {
     super();
+    this.container.bind(BwcxClientVueClientRoutesMapId).toConstantValue(clientRoutesMap);
   }
 
   protected async beforeWire() {

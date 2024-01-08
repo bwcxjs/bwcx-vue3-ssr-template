@@ -105,3 +105,23 @@ export default class SomeView extends Vue {
 const apiClient = useApiClient();
 const res = await apiClient.someApi({ ... });
 ```
+
+
+#### 前端路由和导航
+
+使用 `@View` 和 `@RenderMethod` 为页面视图组件声明路由，这样可以无需定义前端路由配置并自动在后端装配该路由。
+
+要导航到其他页面，请通过组件实例上的 `$$router` 进行导航。在本模板中，根据习惯约定页面路由组件以 `.view.vue` 结尾，以和其他组件进行区分。
+
+示例：
+```typescript
+@View('/demo', DemoHomeRPO)
+@RenderMethod(RenderMethodKind.SSR)
+export default class Demo extends mixinRouteProps(DemoHomeRPO) {
+  public goToDetail(id: string) {
+    return this.$$router.to('DemoDetail').push({
+      id,
+    });
+  }
+}
+```

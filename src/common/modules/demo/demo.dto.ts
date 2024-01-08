@@ -1,5 +1,5 @@
-import { FromParam, FromQuery, FromBody } from 'bwcx-common';
-import { IsInt, Min, ValidateNested, IsString, Length } from 'class-validator';
+import { FromParam, FromQuery } from 'bwcx-common';
+import { IsInt, Min, ValidateNested, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class DemoGetReqDTO {

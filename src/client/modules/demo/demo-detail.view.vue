@@ -8,26 +8,34 @@
   <pre>{{ JSON.stringify({ list }) }}</pre>
 
   <p>Page param/query:</p>
-  <pre>{{ JSON.stringify({ id }) }}</pre>
+  <pre>{{ JSON.stringify({ id, page, preview, arr }) }}</pre>
 
   <p>mounted only randomNumber: {{ shortenRandomNumber }}</p>
+
+  <div class="pagination">
+    Try awesome router: <a href="javascript:;" @click="goToRandomPage">Go to a random page!</a>
+  </div>
 
   <SomeCommon :some-prop="1" />
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component';
+import { Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
+import { View, mixinRouteProps, RenderMethod, RenderMethodKind } from 'bwcx-client-vue3';
+import { DemoDetailRPO } from '@common/modules/demo/demo.rpo';
 import type { AsyncDataOptions } from '@client/typings';
 import SomeCommon from '@client/components/some-common.vue';
 import { DemoItem } from '@common/modules/demo/demo.dto';
 
+@View('/demo/detail/:id', DemoDetailRPO)
+@RenderMethod(RenderMethodKind.SSR)
 @Options({
   components: {
     SomeCommon,
   },
 })
-export default class DemoDetail extends Vue {
+export default class DemoDetail extends mixinRouteProps(DemoDetailRPO) {
   @Prop() list: DemoItem[];
 
   // as data
@@ -36,10 +44,6 @@ export default class DemoDetail extends Vue {
   // as computed
   get shortenRandomNumber() {
     return this.randomNumber.toFixed(5);
-  }
-
-  get id() {
-    return Number(this.$route.params.id);
   }
 
   async asyncData({ apiClient, to }: AsyncDataOptions) {
@@ -55,6 +59,16 @@ export default class DemoDetail extends Vue {
   // as lifecycle hook
   mounted() {
     this.randomNumber = Math.random();
+  }
+
+  public goToRandomPage() {
+    const page = Math.floor(Math.random() * 1000) + 1;
+    this.$$router.to('DemoDetail').push({
+      id: this.id,
+      preview: this.preview,
+      arr: this.arr,
+      page,
+    });
   }
 }
 </script>

@@ -3,6 +3,8 @@ import { ClientOnly } from 'vite-ssr';
 import { createHead, Head } from '@vueuse/head';
 import type { HookParams } from 'vite-ssr/vue/types';
 import { Vue } from 'vue-class-component';
+import { BwcxClientRouterPlugin } from 'bwcx-client-vue3';
+import { clientRoutesMap } from '@common/router/client-routes';
 import { ApiClientPlugin } from './plugins/api-client.plugin';
 import type { ApiType, ApiClientType } from './api';
 
@@ -18,6 +20,9 @@ export function mainEntry({
 }: HookParams & { api: ApiType; apiClient: ApiClientType }) {
   const head = createHead();
   app.use(head);
+  app.use(BwcxClientRouterPlugin, {
+    routesMap: clientRoutesMap,
+  });
   app.use(ApiClientPlugin, {
     apiClient,
   });
