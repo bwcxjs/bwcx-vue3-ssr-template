@@ -8,7 +8,7 @@
   <nav>
     <router-link to="/">Go to Home</router-link>
     <router-link :to="{ name: 'About' }">Go to About</router-link>
-    <router-link :to="{ name: 'DemoDetail', params: { id: 42 } }">Go to Detail</router-link>
+    <router-link :to="demoDetailUrl">Go to Detail</router-link>
   </nav>
   <h3>Below is the currently rendered route view:</h3>
 
@@ -27,6 +27,13 @@ import { Options, Vue } from 'vue-class-component';
   },
 })
 export default class App extends Vue {
+  get demoDetailUrl() {
+    return this.$$router.to('DemoDetail').formatUrl({
+      id: 42,
+      preview: false,
+      arr: [1, 2],
+    });
+  }
 }
 </script>
 

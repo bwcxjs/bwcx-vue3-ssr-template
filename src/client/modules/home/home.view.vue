@@ -14,9 +14,12 @@ import { Vue, setup } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 import { useHead } from '@vueuse/head';
 import { useContext } from 'vite-ssr/vue';
+import { View, RenderMethod, RenderMethodKind } from 'bwcx-client-vue3';
 import type { DemoGetRespDTO } from '@common/modules/demo/demo.dto';
 import type { AsyncDataOptions } from '@client/typings';
 
+@View('/')
+@RenderMethod(RenderMethodKind.SSR)
 export default class Home extends Vue {
   // passed from asyncData
   @Prop() homeState: DemoGetRespDTO;

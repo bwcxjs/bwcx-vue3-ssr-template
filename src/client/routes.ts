@@ -1,22 +1,10 @@
+import clientRoutes from './router/routes';
+
 export default [
-  {
-    name: 'About',
-    path: '/about',
-    component: () => import('./modules/about/about.view.vue'),
-  },
-  {
-    name: 'DemoDetail',
-    path: '/detail/:id',
-    component: () => import('./modules/detail/detail.view.vue'),
-  },
-  {
-    name: 'Home',
-    path: '/',
-    component: () => import('./modules/home/home.view.vue'),
-  },
+  ...clientRoutes,
   {
     path: '/:catchAll(.*)',
-    name: 'not-found',
+    name: 'NotFound',
     component: () => import('./modules/fallback/not-found.view.vue'),
   },
 ];

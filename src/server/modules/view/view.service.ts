@@ -1,8 +1,8 @@
 import { Service, InjectCtx } from 'bwcx-ljsm';
 import type { RequestContext } from 'bwcx-ljsm';
 import { Inject } from 'bwcx-core';
+import { RenderMethodKind } from 'bwcx-client-vue';
 import { IPageRenderer } from '@server/lib/page-renderer.interface';
-import { RenderMethodKind } from '@common/enums/render.enum';
 
 @Service()
 export default class ViewService {
