@@ -10,9 +10,9 @@ export default class LogicExceptionHandler implements IBwcxExceptionHandler {
             url: ${ctx.url}\n
             err: ${e.message}\n
             stack: ${e.stack}`;
-    ctx.warnL(msg);
+    ctx.warn(msg);
     if (!errCodeConfigs[e.code]) {
-      ctx.warnL(`No err code config for LogicException. url: ${ctx.url}, code: ${e.code}`);
+      ctx.warn(`No err code config for LogicException. url: ${ctx.url}, code: ${e.code}`);
     }
     ctx.body = {
       success: false,
