@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@vue/runtime-core": "^3.2.31",
+    "@vue/server-renderer": "^3.2.31",
     "@vueuse/head": "^0.7.5",
     "axios": "^0.26.1",
     "bwcx-api": "^1.0.1",
