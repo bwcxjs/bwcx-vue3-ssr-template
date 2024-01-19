@@ -65,6 +65,9 @@ dependencies:
   pm2:
     specifier: ^5.1.2
     version: 5.3.0
+  statuses:
+    specifier: ^2.0.1
+    version: 2.0.1
   urlcat-fork:
     specifier: ^2.0.5
     version: 2.0.5

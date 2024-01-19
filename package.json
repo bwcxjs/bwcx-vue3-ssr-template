@@ -52,6 +52,7 @@
     "module-alias": "^2.2.2",
     "node-fetch": "^2.7.0",
     "pm2": "^5.1.2",
+    "statuses": "^2.0.1",
     "urlcat-fork": "^2.0.5",
     "vite": "~2.7.13",
     "vite-ssr": "^0.16.0",
