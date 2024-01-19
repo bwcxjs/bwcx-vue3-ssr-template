@@ -22,7 +22,7 @@ export default class PageRendererProd implements IPageRenderer {
   }
 
   public async render(mode: 'ssr' | 'csr', ctx: RequestContext) {
-    ctx.info(`ssr ${ctx.url}`);
+    ctx.info(`${mode} ${ctx.url}`);
     const url = `${ctx.protocol}://${ctx.host}${ctx.originalUrl}`;
     let res: Rendered;
     try {
