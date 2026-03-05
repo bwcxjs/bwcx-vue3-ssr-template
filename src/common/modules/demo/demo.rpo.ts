@@ -24,3 +24,9 @@ export class DemoDetailRPO {
   @TransformValue(Number)
   public arr?: number[];
 }
+
+export class DemoDetailChildRPO {
+  @InParam()
+  @BaseType(String)
+  public childId?: string;
+}

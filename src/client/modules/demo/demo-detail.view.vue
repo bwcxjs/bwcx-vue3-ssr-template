@@ -17,6 +17,12 @@
   </div>
 
   <SomeCommon :some-prop="1" />
+
+  <div>
+    <a href="javascript:;" @click="goToRandomChildPage">Go to a random child page!</a>
+  </div>
+
+  <router-view />
 </template>
 
 <script lang="ts">
@@ -68,6 +74,12 @@ export default class DemoDetail extends mixinRouteProps(DemoDetailRPO) {
       preview: this.preview,
       arr: this.arr,
       page,
+    });
+  }
+
+  public goToRandomChildPage() {
+    this.$$router.to('DemoDetailChild').push({
+      childId: `${Math.floor(Math.random() * 1000) + 1}`,
     });
   }
 }

@@ -5,11 +5,12 @@
 
 import { Newable } from 'bwcx-common';
 import { RenderMethodKind } from 'bwcx-client-vue/enums';
-import { DemoDetailRPO } from '../modules/demo/demo.rpo';
+import { DemoDetailChildRPO, DemoDetailRPO } from '../modules/demo/demo.rpo';
 
 export const clientRoutesMap = new Map<string, { path: string; routeProps: Newable | undefined; renderMethod: RenderMethodKind | undefined }>([
   ['About', { path: '/about', routeProps: undefined, renderMethod: undefined }],
+  ['DemoDetailChild', { path: '/demo/detail/:id/child/:childId', routeProps: DemoDetailChildRPO, renderMethod: RenderMethodKind.SSR }],
   ['DemoDetail', { path: '/demo/detail/:id', routeProps: DemoDetailRPO, renderMethod: RenderMethodKind.SSR }],
   ['Home', { path: '/', routeProps: undefined, renderMethod: RenderMethodKind.SSR }],
 ]);
-export { DemoDetailRPO } from '../modules/demo/demo.rpo';
+export { DemoDetailChildRPO, DemoDetailRPO } from '../modules/demo/demo.rpo';

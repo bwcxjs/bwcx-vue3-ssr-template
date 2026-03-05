@@ -4,7 +4,7 @@
  */
 
 import { parseRoutes, RenderMethodKind } from 'bwcx-client-vue3';
-import { DemoDetailRPO } from '../../common/modules/demo/demo.rpo';
+import { DemoDetailChildRPO, DemoDetailRPO } from '../../common/modules/demo/demo.rpo';
 
 const clientRoutes = parseRoutes([
   {
@@ -25,6 +25,18 @@ const clientRoutes = parseRoutes([
     routeProps: DemoDetailRPO,
     priority: undefined,
     renderMethod: RenderMethodKind.SSR,
+    children: [
+      {
+        name: 'DemoDetailChild',
+        path: 'child/:childId',
+        fullPath: '/demo/detail/:id/child/:childId',
+        component: () => import(/* webpackChunkName: "DemoDetailChild" */ '../modules/demo/demo-detail-child.view.vue'),
+        routeProps: DemoDetailChildRPO,
+        priority: undefined,
+        renderMethod: RenderMethodKind.SSR,
+        otherOptions: undefined,
+      },
+    ],
     otherOptions: undefined,
   },
   {

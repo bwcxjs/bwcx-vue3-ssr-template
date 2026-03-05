@@ -44,11 +44,11 @@ export function mainEntry({
   });
 
   router.beforeResolve(async (to, from, next) => {
-    const component = to.matched[0].components.default;
+    const toComponents = to.matched.map((m) => m.components.default).filter((c) => c);
     // const instance = to.matched[0].instances.default;
 
     // @ts-ignore
-    if (!component.asyncData || !component) {
+    if (toComponents.every((c) => !c || typeof c.asyncData !== 'function')) {
       return next();
     }
 
@@ -60,9 +60,35 @@ export function mainEntry({
     // 可以在这里加入全局 loading 进度条。或改写这个钩子实现 Route-Update-First 的导航
     try {
       // @ts-ignore
-      const result = await component.asyncData({ app, router, initialState, to, from, api, apiClient });
-      // eslint-disable-next-line no-param-reassign
-      to.meta.state = result;
+      const results = await Promise.all(
+        to.matched.map(async (matched) => {
+          const c = matched.components.default;
+          // @ts-ignore
+          if (!c || typeof c.asyncData !== 'function') {
+            return null;
+          }
+          try {
+            // @ts-ignore
+            return [matched.name, await c.asyncData({ app, router, initialState, to, from, api, apiClient })];
+          } catch (e) {
+            console.error(
+              `[asyncData] error in \`asyncData\` hook of component ${c.name} while navigating to ${to.fullPath}:`,
+              e,
+            );
+            throw e;
+          }
+        }),
+      );
+      const asyncDataResult: Record</** route name */ string, any> = {};
+      for (const result of results) {
+        if (result) {
+          const [name, data] = result;
+          asyncDataResult[name] = data;
+        }
+      }
+      to.meta.state = {
+        __bwcx_route_extraProps: asyncDataResult,
+      };
       return next();
     } catch (e) {
       console.error(`[asyncData] failed to run while navigating to ${to.fullPath}`);

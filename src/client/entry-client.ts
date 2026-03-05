@@ -5,14 +5,23 @@ import { ApiFactory } from './api/api-factory.client';
 import { ApiClientFactory, API_REQUEST_TOKEN, API_CLIENT_TOKEN } from './api';
 import { mainEntry } from './main';
 
-export default viteSSR(App, { routes }, (hookParams) => {
-  const { app } = hookParams;
+export default viteSSR(
+  App,
+  {
+    routes,
+    pageProps: {
+      passToPage: false,
+    },
+  },
+  (hookParams) => {
+    const { app } = hookParams;
 
-  // init api
-  const api = ApiFactory.createInstance();
-  const apiClient = ApiClientFactory.createInstance(api);
-  app.provide(API_REQUEST_TOKEN, api);
-  app.provide(API_CLIENT_TOKEN, apiClient);
+    // init api
+    const api = ApiFactory.createInstance();
+    const apiClient = ApiClientFactory.createInstance(api);
+    app.provide(API_REQUEST_TOKEN, api);
+    app.provide(API_CLIENT_TOKEN, apiClient);
 
-  return mainEntry({ ...hookParams, api, apiClient });
-});
+    return mainEntry({ ...hookParams, api, apiClient });
+  },
+);
